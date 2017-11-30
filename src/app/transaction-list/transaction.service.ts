@@ -18,7 +18,7 @@ export class TransactionService {
   }
 
   getTransactions(): Observable<ITransaction[]> {
-    return this._httpClient.get<ITransaction[]>('http://localhost:53467/api/transactions', {
+    return this._httpClient.get<ITransaction[]>('https://your-money-api.herokuapp.com/api/transactions', {
       headers: { 'Authorization': 'JWT ' + this.token }
     });
   }
