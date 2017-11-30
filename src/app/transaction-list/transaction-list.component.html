@@ -1,0 +1,6 @@
+<div class='transactions-container'>
+  <mat-card *ngFor='let transaction of transactions' class='transaction-item'>
+      <mat-card-title class='card-title'>{{'Transaction value: ' + transaction.value}}</mat-card-title>
+      <mat-card-subtitle>{{'Description: ' +  transaction.description}}</mat-card-subtitle>
+  </mat-card>
+</div>
