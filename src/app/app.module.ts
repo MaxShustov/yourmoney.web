@@ -5,24 +5,23 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { TransactionListComponent } from './transaction-list/transaction-list.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { AuthInterceptor } from './authinterceptor';
 import { LoginModule } from './login/login.module';
-import { LoginComponent } from './login/login.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { CoreModule } from './core/core.module';
+import { TransactionListModule } from './transaction-list/transaction-list.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TransactionListComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     MatCardModule,
     HttpClientModule,
+    TransactionListModule,
     LoginModule,
     CoreModule,
     LocalStorageModule.withConfig({
@@ -31,7 +30,6 @@ import { CoreModule } from './core/core.module';
     }),
     BrowserAnimationsModule,
     RouterModule.forRoot([
-      { path: 'transaction-list', component: TransactionListComponent}
     ])
   ],
   providers: [{

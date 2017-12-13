@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './login.service';
+import { TransactionService } from './transaction.service';
 
 @NgModule({
   imports: [
@@ -9,6 +10,9 @@ import { LoginService } from './login.service';
     HttpClientModule
   ],
   declarations: [],
-  providers: [LoginService]
+  providers: [
+    LoginService,
+    TransactionService
+  ]
 })
 export class CoreModule { }

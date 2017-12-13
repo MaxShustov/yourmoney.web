@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Add your spent:</h2>
+<mat-dialog-content>
+    <mat-form-field class="block-input">
+        <input matInput placeholder="Description" [(ngModel)]="transactionDescription">
+    </mat-form-field>
+    <mat-form-field class="block-input">
+        <span matPrefix>{{sign + '&nbsp;'}}</span>
+        <input matInput type="number" placeholder="Value" [(ngModel)]="transactionValue">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+  <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button class="dialog-button" color="primary" (click)="onAdd()">Add</button>
+</mat-dialog-actions>

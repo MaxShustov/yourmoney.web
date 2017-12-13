@@ -1,6 +1,18 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <img src="../../assets/images/app-icon.png" alt="App Icon" class="toolbar-app-icon" />
+    <span class="toolbar-title">Your Money</span>
+    <button mat-icon-button (click)="addIncome()">
+      <mat-icon class="example-icon">add</mat-icon>
+    </button>
+    <button mat-icon-button (click)="addOutcome()">
+        <mat-icon class="example-icon">remove</mat-icon>
+      </button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <div class='transactions-container'>
   <mat-card *ngFor='let transaction of transactions' class='transaction-item'>
-      <mat-card-title class='card-title'>{{'Transaction value: ' + transaction.value}}</mat-card-title>
-      <mat-card-subtitle>{{'Description: ' +  transaction.description}}</mat-card-subtitle>
+    <mat-card-title class='card-title'>{{'Transaction value: ' + transaction.value}}</mat-card-title>
+    <mat-card-subtitle>{{'Description: ' + transaction.description}}</mat-card-subtitle>
   </mat-card>
 </div>
