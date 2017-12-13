@@ -4,22 +4,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
+import { LocalStorageService } from 'angular-2-local-storage/dist/local-storage.service';
 
 @Injectable()
 export class TransactionService {
-
-  options: any;
-  token: string;
-
-  constructor(private _httpClient: HttpClient) {
-    this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZDc5NmYwYTIxNzk2NGQ0ODVkZGZjMiIsImlhdCI6MTUxMTk1MDczNn0.2MemqV0J54LVkNEIRhbm0Kd0eMSMq62QW9IsRj2vjD4';
-    const headers = new Headers({'Authorization': 'JWT ' + this.token});
-    this.options = { headers: headers };
+  constructor(
+    private _httpClient: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {
   }
 
   getTransactions(): Observable<ITransaction[]> {
+    const token: string = this.localStorageService.get<string>('auth-token');
+    const headers = new Headers({'Authorization': 'JWT ' + token});
+    const options: any = { headers: headers };
+
     return this._httpClient.get<ITransaction[]>('https://your-money-api.herokuapp.com/api/transactions', {
-      headers: { 'Authorization': 'JWT ' + this.token }
+      headers: { 'Authorization': 'JWT ' + token }
     });
   }
 }

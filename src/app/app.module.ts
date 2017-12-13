@@ -11,6 +11,8 @@ import { MatCardModule } from '@angular/material/card';
 import { AuthInterceptor } from './authinterceptor';
 import { LoginModule } from './login/login.module';
 import { LoginComponent } from './login/login.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,15 @@ import { LoginComponent } from './login/login.component';
     MatCardModule,
     HttpClientModule,
     LoginModule,
+    CoreModule,
+    LocalStorageModule.withConfig({
+      prefix: 'your-money',
+      storageType: 'localStorage'
+    }),
+    BrowserAnimationsModule,
     RouterModule.forRoot([
-      { path: 'transaction-list', component: TransactionListComponent},
-      { path: 'login', component: LoginComponent },
-      { path: '', redirectTo: '/login', pathMatch: 'full' }
-    ]),
-    BrowserAnimationsModule
+      { path: 'transaction-list', component: TransactionListComponent}
+    ])
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
