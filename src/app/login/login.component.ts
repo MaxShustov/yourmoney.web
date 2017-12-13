@@ -8,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   hide: Boolean = true;
+  userName: string;
+  password: string;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  togglePasswordHideState() {
+    this.hide = !this.hide;
+  }
+
+  onLoginButtonClick() {
+  }
 }
