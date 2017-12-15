@@ -2,17 +2,23 @@ import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http'
 import { HttpEvent } from '@angular/common/http/src/response';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from 'angular-2-local-storage/dist/local-storage.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  // tslint:disable-next-line:max-line-length
-  token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZDc5NmYwYTIxNzk2NGQ0ODVkZGZjMiIsImlhdCI6MTUxMTk1MDczNn0.2MemqV0J54LVkNEIRhbm0Kd0eMSMq62QW9IsRj2vjD4';
+  constructor(private localStorageService: LocalStorageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const cloned = req.clone({
-       setHeaders: { Authorization: 'JWT ' + this.token }
-    });
+    const token = this.localStorageService.get('auth-token');
+
+    if (token) {
+      const cloned = req.clone({
+        setHeaders: { Authorization: 'JWT ' + token }
+      });
+
+      return next.handle(cloned);
+    }
 
     return next.handle(req);
   }

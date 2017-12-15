@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { CategoryService } from '../../core/category.service';
 
 @Component({
   selector: 'app-add-transaction-dialog',
@@ -10,20 +11,31 @@ export class AddTransactionDialogComponent implements OnInit {
 
   transactionDescription: string;
   transactionValue: number;
-  transactionCategory: number;
-
+  transactionCategory: string;
+  categories: string[];
   sign = '-';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<AddTransactionDialogComponent>
+    public dialogRef: MatDialogRef<AddTransactionDialogComponent>,
+    private categoryService: CategoryService
   ) {
-    if (data !== null) {
-      this.sign = data.sign ? data.sign : '-';
-    }
   }
 
   ngOnInit(): void {
+    this.categories = [];
+
+    if (this.data !== null) {
+      this.sign = this.data.sign ? this.data.sign : '-';
+    }
+
+    this.categoryService.getCategories()
+      .subscribe(
+        categories => {
+          this.categories = categories.filter(c => this.sign === '-' ? !c.isIncome : c.isIncome).map(c => c.name);
+          this.transactionCategory = this.categories[0];
+        }
+      );
   }
 
   onCancel() {

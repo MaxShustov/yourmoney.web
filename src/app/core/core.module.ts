@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './login.service';
 import { TransactionService } from './transaction.service';
+import { CategoryService } from './category.service';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { TransactionService } from './transaction.service';
   declarations: [],
   providers: [
     LoginService,
-    TransactionService
+    TransactionService,
+    CategoryService
   ]
 })
 export class CoreModule { }

@@ -5,22 +5,28 @@ import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
 import { LocalStorageService } from 'angular-2-local-storage/dist/local-storage.service';
+import { AppConfig } from '../config';
+import { Transaction } from './Models/fullTransaction';
 
 @Injectable()
 export class TransactionService {
+  url = AppConfig.baseUrl + '/transactions';
+
   constructor(
     private _httpClient: HttpClient,
     private localStorageService: LocalStorageService
   ) {
   }
 
-  getTransactions(): Observable<ITransaction[]> {
-    const token: string = this.localStorageService.get<string>('auth-token');
-    const headers = new Headers({'Authorization': 'JWT ' + token});
-    const options: any = { headers: headers };
+  getTransactions(): Observable<Transaction[]> {
+    return this._httpClient.get<Transaction[]>(this.url);
+  }
 
-    return this._httpClient.get<ITransaction[]>('https://your-money-api.herokuapp.com/api/transactions', {
-      headers: { 'Authorization': 'JWT ' + token }
-    });
+  addTransaction(transaction: ITransaction): Observable<string> {
+    return this._httpClient.post<string>(this.url, transaction);
+  }
+
+  removeTransaction(transactionId: string): Observable<string> {
+    return this._httpClient.delete<string>(`${this.url}/${transactionId}`);
   }
 }

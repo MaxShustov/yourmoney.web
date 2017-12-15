@@ -7,7 +7,8 @@ import {
   MatCardModule,
   MatButtonModule,
   MatToolbarModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSelectModule
 } from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
 
@@ -20,7 +21,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   exports: [
     MatFormFieldModule,
@@ -29,7 +31,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   declarations: []
 })

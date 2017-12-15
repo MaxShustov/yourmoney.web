@@ -7,8 +7,13 @@
         <span matPrefix>{{sign + '&nbsp;'}}</span>
         <input matInput type="number" placeholder="Value" [(ngModel)]="transactionValue">
     </mat-form-field>
+    <mat-form-field>
+        <mat-select [(ngModel)]="transactionCategory">
+            <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions class="dialog-actions">
-  <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-  <button mat-raised-button class="dialog-button" color="primary" (click)="onAdd()">Add</button>
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button class="dialog-button" color="primary" (click)="onAdd()">Add</button>
 </mat-dialog-actions>

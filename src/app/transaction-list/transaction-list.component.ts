@@ -13,23 +13,17 @@ export class TransactionListComponent implements OnInit {
   transactions: ITransaction[];
 
   constructor(
-    private _transactionService: TransactionService,
+    private transactionService: TransactionService,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   addOutcome() {
     const dialogRef = this.dialog.open(AddTransactionDialogComponent, {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(
-      result => {
-        if (result) {
-          alert(`You have entered description: ${result.description} and value: ${result.value}`);
-        }
-      }
-    );
+    const self = this;
+    dialogRef.afterClosed().subscribe(res => this.onDialogClose.call(self, res));
   }
 
   addIncome() {
@@ -37,21 +31,26 @@ export class TransactionListComponent implements OnInit {
       width: '400px',
       data: { sign: '+' }
     });
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-        if (result) {
-          alert(`You've entered: description: ${result.description} and value: ${result.value}`);
-        }
-      }
-    );
+    const self = this;
+    dialogRef.afterClosed().subscribe(res => this.onDialogClose.call(self, res));
   }
 
   ngOnInit() {
-    this._transactionService.getTransactions().subscribe(
-      transactions => this.transactions = transactions,
-      error => console.log(error)
-    );
+    this.refresh();
   }
 
+  private onDialogClose(result: any) {
+    const self = this;
+    this.transactionService.addTransaction({
+      description: result.description,
+      value: result.value,
+      category: result.category
+    }).subscribe(r => { self.refresh(); });
+  }
+
+  private refresh() {
+    this.transactionService.getTransactions().subscribe(
+      transactions => this.transactions = transactions.sort((a, b) => a.date <= b.date ? 1 : -1)
+    );
+  }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AddTransactionDialogComponent } from './add-transaction-dialog/add-transaction-dialog.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -10,7 +11,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule
   ],
-  declarations: [AddTransactionDialogComponent],
+  declarations: [AddTransactionDialogComponent, ConfirmDialogComponent],
   entryComponents: [
     AddTransactionDialogComponent
   ]
