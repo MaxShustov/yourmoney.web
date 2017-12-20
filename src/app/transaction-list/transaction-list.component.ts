@@ -40,6 +40,10 @@ export class TransactionListComponent implements OnInit {
   }
 
   private onDialogClose(result: any) {
+    if (!result) {
+      return;
+    }
+
     const self = this;
     this.transactionService.addTransaction({
       description: result.description,
@@ -50,7 +54,7 @@ export class TransactionListComponent implements OnInit {
 
   private refresh() {
     this.transactionService.getTransactions().subscribe(
-      transactions => this.transactions = transactions.sort((a, b) => a.date <= b.date ? 1 : -1)
+      transactions => this.transactions = transactions.filter(t => t.description && t.value).sort((a, b) => a.date <= b.date ? 1 : -1)
     );
   }
 }
